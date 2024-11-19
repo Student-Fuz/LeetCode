@@ -25,8 +25,8 @@ public:
                 break;
             if(cur->val == val){
                 tmp = cur;
-                prev->next = cur->next;
                 cur = cur->next;
+                prev->next = cur;
                 delete tmp;
             }
             else{
@@ -34,7 +34,10 @@ public:
                 cur = cur->next;
             }
         }
-        return dummyHead->next;
+        head = dummyHead->next;
+        // 需要删除栈上变量
+        delete dummyHead;
+        return head;
 
     }
 };

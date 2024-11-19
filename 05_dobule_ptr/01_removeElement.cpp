@@ -32,7 +32,28 @@ using namespace std;
 // }
 // 如果所有的断言都通过，你的解决方案将会 通过。
 
+// 暴力法
+// 时间复杂度：O(n^2)
+// 空间复杂度：O(1)
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int size = nums.size();
+        for (int i = 0; i < size; i++) {
+            if (nums[i] == val) { // 发现需要移除的元素，就将数组集体向前移动一位
+                for (int j = i + 1; j < size; j++) {
+                    nums[j - 1] = nums[j];
+                }
+                i--; // 因为下标i以后的数值都向前移动了一位，所以i也向前移动一位
+                size--; // 此时数组的大小-1
+            }
+        }
+        return size;
 
+    }
+};
+
+// 双指针(快慢指针)法 v1_0
 class Solution {
 public:
     int removeElement(vector<int>& nums, int val) {
@@ -44,14 +65,51 @@ public:
         for(;slow_it < nums.end();slow_it++){
             if(*slow_it==val)
                 break;
+            else    
+                k++;
         } 
         for(fast_it = slow_it;fast_it != nums.end();fast_it++){
             if(*fast_it != val){
                 *slow_it = *fast_it;
                 slow_it++;
-            }
-            else
                 k++;
+            }    
+        }
+        return k;
+
+    }
+};
+
+// 双指针(快慢指针)法 v1_1a 标准答案 迭代器
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int k = 0;
+        for(auto fast_it = nums.begin(), slow_it = nums.begin(); fast_it != nums.end(); fast_it++){
+            if(*fast_it != val){
+                *slow_it = *fast_it;
+                slow_it++;
+                k++;
+            }
+        }
+        return k;
+
+    }
+};
+
+// 双指针(快慢指针)法 v1_1b 标准答案 索引
+// 时间复杂度：O(n)
+// 空间复杂度：O(1)
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int k = 0;
+        for(int fast_index = 0, slow_index = 0; fast_index < nums.size(); fast_index++){
+            if(nums[fast_index] != val){
+                nums[slow_index] = nums[fast_index];
+                slow_index++;
+                k++;
+            }
         }
         return k;
 
@@ -61,6 +119,7 @@ public:
 int main(){
 
     Solution s;
-
+    vector<int> nums = {0,1,2,2,3,0,4,2};
+    s.removeElement(nums, 2);
     return 0;
 }

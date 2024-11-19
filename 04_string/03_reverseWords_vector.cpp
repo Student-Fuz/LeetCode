@@ -71,41 +71,6 @@ public:
     }
 };
 
-std::vector<std::string> split(const std::string& str, char delimiter) {
-    std::vector<std::string> tokens;
-    std::istringstream stream(str);
-    std::string token;
-
-    while (std::getline(stream, token, delimiter)) {
-        tokens.push_back(token);
-    }
-
-    return tokens;
-}
-
-//库函数split
-class Solution {
-public:
-    string reverseWords(string s) {
-        vector<string> str_vec;
-        string result_str;
-        char delimiter = ' ';
-
-        str_vec = split(s, delimiter);
-
-        int str_vec_size = str_vec.size();   
-        for(int i = str_vec_size-1; i > -1; i--){
-            result_str += (str_vec[i] + " ");
-        }
-        
-        if (!result_str.empty()) {
-            result_str.pop_back(); // 去掉尾部多余空格
-        }
-
-        return result_str;
-    }
-};
-
 int main(){
 
     Solution s;
