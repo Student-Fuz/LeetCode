@@ -23,8 +23,9 @@ struct ListNode {
 class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
-        ListNode *slow_node = head;
-        ListNode *fast_node = head;
+        ListNode *dummyHead = new ListNode(0, head);
+        ListNode *slow_node = dummyHead;
+        ListNode *fast_node = dummyHead;
 
         int distance = 0;
 
@@ -35,15 +36,22 @@ public:
                 distance++;
             }
             else{
-                while(fast_node != nullptr){
+                while(fast_node->next != nullptr){
                     fast_node = fast_node->next;
                     slow_node = slow_node->next;
                 }
+                break;
             }
-        }
-        
+        }  
+        // 删除节点
+        slow_node->next = slow_node->next->next;
+        // delete slow_node->next;
+        // 返回表头
+        head = dummyHead->next;
+        // delete dummyHead;
+        return head; 
     }
-};;
+};
 
 int main(){
 
