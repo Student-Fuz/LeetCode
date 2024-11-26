@@ -62,6 +62,7 @@ public:
 };
 
 // 最小顶堆方法
+// 大顶堆----堆头是最大元素 小顶对----堆头是最小元素
 // 时间复杂度O(n+nlogn+n)
 class Solution {
 public:
