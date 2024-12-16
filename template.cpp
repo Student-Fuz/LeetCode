@@ -14,7 +14,7 @@ using namespace std;
 // Solution
 class Solution {
 public:
-    int strStr(string haystack, string needle) {
+    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
         
     }
 };
