@@ -22,7 +22,7 @@ public:
 
 int main(){ 
     Solution s;
-    vector v = {0,1,2,2,3,0,4,2};
+    vector<int> v = {0,1,2,2,3,0,4,2};
     int a = s.removeElement(v,2);
     cout << a << endl;
     return 0;

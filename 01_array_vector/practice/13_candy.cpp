@@ -21,7 +21,35 @@ using namespace std;
 class Solution {
 public:
     int candy(vector<int>& ratings) {
-        
+        // for(int)
+    }
+};
+
+// 标准答案
+class Solution {
+public:
+    int candy(vector<int>& ratings) {
+        int n = ratings.size();
+        int ret = 1;
+        int inc = 1, dec = 0, pre = 1;
+        for (int i = 1; i < n; i++) {
+            // 升序
+            if (ratings[i] >= ratings[i - 1]) {
+                dec = 0;
+                pre = ratings[i] == ratings[i - 1] ? 1 : pre + 1;
+                ret += pre;
+                inc = pre;
+            } else { // 严格降序
+                dec++;
+                // +1 于上一个升序的末尾
+                if (dec == inc) {
+                    dec++;
+                }
+                ret += dec;
+                pre = 1;
+            }
+        }
+        return ret;
     }
 };
 
