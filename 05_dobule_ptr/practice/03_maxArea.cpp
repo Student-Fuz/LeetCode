@@ -28,16 +28,24 @@ public:
     }
 };
 
-//
+// 双指针
+// 数学证明 TODO
+// https://leetcode.cn/problems/container-with-most-water/solutions/207215/sheng-zui-duo-shui-de-rong-qi-by-leetcode-solution/?envType=study-plan-v2&envId=top-interview-150
 class Solution {
 public:
     int maxArea(vector<int>& height) {
         int volume = 0;
 
-        int low = 0, high = height.size()-1;
+        int front = 0, back = height.size()-1;
+        int lower = 0;
         // 从最长的宽开始
-        while(high > low){
-            
+        while(back > front){
+            lower = min(height[front], height[back]);
+            volume = max(lower * (back - front), volume);
+            if(lower == height[front])
+                front++;
+            else // lower == back
+                back--;
         }
 
         return volume;
