@@ -14,8 +14,11 @@ using namespace std;
 // Solution
 class Solution {
 public:
-    int integerBreak(int n) {
-        
+    int singleNumber(vector<int>& nums) {
+        int result = 0;
+        for(int i = 1; i < nums.size(); i++)
+            result ^= nums[i];
+        return result;
     }
 };
 

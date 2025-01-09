@@ -14,7 +14,7 @@ using namespace std;
 // Solution
 class Solution {
 public:
-    int integerBreak(int n) {
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
         
     }
 };

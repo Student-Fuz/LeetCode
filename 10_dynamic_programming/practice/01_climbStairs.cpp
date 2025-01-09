@@ -9,12 +9,12 @@
 using namespace std;
 
 // 题目描述
-
+// https://leetcode.cn/problems/climbing-stairs/description/?envType=study-plan-v2&envId=top-interview-150
 
 // Solution
 class Solution {
 public:
-    int integerBreak(int n) {
+    int climbStairs(int n) {
         
     }
 };
