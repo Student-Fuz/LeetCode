@@ -14,7 +14,9 @@ using namespace std;
 // Solution
 class Solution {
 public:
-
+    int wiggleMaxLength(vector<int>& nums) {
+        
+    }
 };
 
 int main(){
