@@ -61,6 +61,30 @@ public:
     }
 };
 
+// 无类变量回溯算法
+class Solution {
+private:
+    void backtracking(int n, int k, int startIndex, vector<vector<int>>& result, vector<int>& path) {
+        if (path.size() == k) {
+            result.push_back(path);
+            return;
+        }
+        for (int i = startIndex; i <= n - (k - path.size()) + 1; i++) { // 优化的地方
+            path.push_back(i); // 处理节点
+            backtracking(n, k, i + 1, result, path);
+            path.pop_back(); // 回溯，撤销处理的节点
+        }
+    }
+public:
+
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> result;
+        vector<int> path;
+        backtracking(n, k, 1, result, path);
+        return result;
+    }
+};
+
 int main(){
 
     Solution s;

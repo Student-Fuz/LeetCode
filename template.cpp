@@ -9,7 +9,7 @@
 using namespace std;
 
 // 题目描述
-
+// 
 
 // Solution
 class Solution {
@@ -19,7 +19,9 @@ public:
 
 int main(){
 
-    Solution s;
+    // Solution s;
+
+    cout << "Hello, world!" << endl;
 
     return 0;
 }
