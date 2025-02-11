@@ -74,6 +74,7 @@ public:
     //     order(cur->right, result, depth + 1);
     // }
 
+    // 后序访问
     void order(TreeNode* cur, vector<vector<int>>& result, int depth)
     {
         if (cur == nullptr) return;
