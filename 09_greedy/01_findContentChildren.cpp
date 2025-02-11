@@ -16,35 +16,28 @@ using namespace std;
 class Solution {
 public:
     int findContentChildren(vector<int>& g, vector<int>& s) {
-        // sort排序默认升序
-
-        // 降序排列
-        // sort(g.begin(), g.end(), [](int a, int b) { return a > b; });
-        // sort(s.begin(), s.end(), [](int a, int b) { return a > b; });
-
-        // 升序排列
+        // 排序
         sort(g.begin(), g.end());
         sort(s.begin(), s.end());
 
         int res = 0;
+        int i = 0;  // 用来遍历饼干数组
+        int j = 0;  // 用来遍历孩子数组
 
-        while((!s.empty()) && (!g.empty())){
-            int cur_size = s.back();
-            // 已有饼干无法满足孩子
-            if(cur_size < g[0])
-                break;
-            // 将此饼干给刚好满足的孩子
-            auto child = lower_bound(g.begin(), g.end(), cur_size);
-            if(child != g.end()){
-                g.erase(child);
-                res++;
+        // 使用双指针方法：i 指向饼干数组，j 指向孩子数组
+        while (i < s.size() && j < g.size()) {
+            // 如果当前饼干满足当前孩子
+            if (s[i] >= g[j]) {
+                res++;  // 一个孩子被满足
+                j++;    // 让孩子数组向前推进
             }
-            s.pop_back();
+            i++;  // 即使饼干没有满足孩子，也要继续遍历下一个饼干
         }
-        
+
         return res;
     }
 };
+
 
 int main(){
 

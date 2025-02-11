@@ -9,19 +9,19 @@
 using namespace std;
 
 // 题目描述
-// 
+// https://leetcode.cn/problems/wiggle-subsequence/description/
 
 // Solution
 class Solution {
 public:
-
+    int wiggleMaxLength(vector<int>& nums) {
+        
+    }
 };
 
 int main(){
 
-    // Solution s;
-
-    cout << "Hello, world!" << endl;
+    Solution s;
 
     return 0;
 }
