@@ -51,25 +51,9 @@ public:
 
 // m2:循环遍历
 class Solution {
-public:
+public:  
     vector<double> averageOfLevels(TreeNode* root) {
-        queue<TreeNode*> que;
-        if(root != NULL) que.push(root);
-        vector<double> result;
-        while(!que.empty()){
-            int size = que.size();
-            result.push_back(0.0);
-            // 层序遍历
-            for(int i = 0; i < size; i++){
-                TreeNode* node = que.front();
-                que.pop();
-                result.back() += node->val;
-                if(node->left) que.push(node->left);
-                if(node->right) que.push(node->right);
-            }
-        result.back() /= size;
-        }
-        return result;
+        
     }
 };
 
