@@ -43,12 +43,12 @@ public:
         vector<int> path;
         traverse(root, paths, path);
         for(int i = 0; i < paths.size(); i++){
+            result.push_back("");
             for(int j = 0; j < paths[i].size(); j++){
-                result.push_back(to_string(paths[i][j]));
+                result.back() += to_string(paths[i][j]);
                 result.back() += "->";
             }
-            result.back().pop_back();
-            result.back().pop_back();
+            result.back().erase(result.back().length() - 2);
         }
         return result;
     }
