@@ -30,9 +30,10 @@ class Solution {
 public:
     void traverse(TreeNode* cur, vector<vector<int>>& paths, vector<int> path) {
         if(cur == NULL) return;
-        if(cur->left == NULL && cur->right == NULL) paths.push_back(path);
+
         // 前序遍历
         path.push_back(cur->val);
+        if(cur->left == NULL && cur->right == NULL) paths.push_back(path);
         traverse(cur->left, paths, path);
         traverse(cur->right, paths, path);
         path.pop_back();
