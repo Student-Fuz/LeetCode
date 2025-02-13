@@ -117,6 +117,10 @@ public:
 
 
 // 链接：https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-postorder-traversal/description/
+
+// 题解：https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-postorder-traversal/solutions/2645281/gen-ju-qian-xu-he-hou-xu-bian-li-gou-zao-6vzt/
+// 思路：1. 假设左子树不为空
+
 // 根据前序后序遍历构造树
 // 前序和后序遍历构造出的不是唯一二叉树（由多个答案）
 class Solution {
@@ -124,7 +128,25 @@ class Solution {
     TreeNode* traversal (vector<int>& preorder, vector<int>& postorder) {
         if(preorder.size() == 0 || postorder.size() == 0) return NULL;
 
+        TreeNode* root = new TreeNode(preorder.front());
 
+        // 叶子节点
+        if(preorder.size() == 1) return root;
+
+        // 根据前序遍历的左子树根节点切割后续遍历
+        int delimiterIndex = 0;
+        for(; delimiterIndex < postorder.size()-1; delimiterIndex++){
+            if(postorder[delimiterIndex] == preorder[1]) break;
+        }
+
+        vector<int> postorder_l(postorder.begin(), postorder.begin()+delimiterIndex+1);
+        vector<int> postorder_r(postorder.begin()+delimiterIndex+1, postorder.begin()+postorder.size()-1);
+
+        vector<int> preorder_l(preorder.begin()+1, preorder.begin()+1+delimiterIndex+1);
+        vector<int> preorder_r(preorder.begin()+1+delimiterIndex+1, preorder.end());
+
+        root->left = traversal(preorder_l, postorder_l);
+        root->right = traversal(preorder_r, postorder_r);
 
         return root;
     }
