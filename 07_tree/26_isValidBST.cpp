@@ -87,20 +87,44 @@ public:
 };
 
 // 标准答案
+// 中序遍历 前中后
+// 保证中序遍历的值是递增的即可认定该树是搜索二叉树
 class Solution {
-    public:
-        TreeNode* pre = NULL; // 用来记录前一个节点
-        bool isValidBST(TreeNode* root) {
-            if (root == NULL) return true;
-            bool left = isValidBST(root->left);
-    
-            if (pre != NULL && pre->val >= root->val) return false;
-            pre = root; // 记录前一个节点
-    
-            bool right = isValidBST(root->right);
-            return left && right;
-        }
-    };
+public:
+    TreeNode* pre = NULL; // 用来记录前一个节点
+    bool isValidBST(TreeNode* root) {
+        if (root == NULL) return true;
+        bool left = isValidBST(root->left);
+
+        if (pre != NULL && pre->val >= root->val) return false;
+        pre = root; // 记录前一个节点
+
+        bool right = isValidBST(root->right);
+        return left && right;
+    }
+};
+
+// 无类变量版本
+class Solution {
+private: 
+    // bool inorderTraverse(TreeNode* root, TreeNode* pre) 错误
+    bool inorderTraverse(TreeNode* root, TreeNode*& pre){
+        if (root == NULL) return true;
+        bool left = inorderTraverse(root->left, pre);
+
+        if (pre != NULL && pre->val >= root->val) return false;
+        pre = root; // 记录前一个节点
+
+        bool right = inorderTraverse(root->right, pre);
+        return left && right;
+    }
+public:
+    bool isValidBST(TreeNode* root) {
+        TreeNode* pre = nullptr;  // 初始化前一个节点
+        return inorderTraverse(root, pre);
+    }
+};
+
 
 int main(){
 
