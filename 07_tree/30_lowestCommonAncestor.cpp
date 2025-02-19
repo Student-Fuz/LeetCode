@@ -25,25 +25,7 @@ struct TreeNode {
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-// 标准答案：
-// 后序遍历
-class Solution {
-private:
-    TreeNode* postorder(TreeNode* cur, TreeNode* p, TreeNode* q){
-        if(cur == p || cur == q || cur == NULL) return cur;
-        TreeNode* left = postorder(cur->left, p, q);
-        TreeNode* right = postorder(cur->right, p, q);
-        if(left != NULL && right != NULL) return cur;
-        if(left == NULL && right != NULL) return right;
-        if (left != NULL && right == NULL) return left;
-        return NULL;
-    }
-public:
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        return postorder(root, p, q);
-    }
-};
-
+// 一般树的最近公共祖先
 // 标准答案优化版
 class Solution {
 private:
@@ -62,27 +44,17 @@ public:
     }
 };
 
-// 暴力前序
-// 前序遍历
-// 迷途知返
+// 利用二叉搜索树性质进行查找
+// 当我们从上向下去递归遍历，第一次遇到 cur节点是数值在[q, p]区间中，那么cur就是 q和p的最近公共祖先。
+// 而递归遍历顺序，本题就不涉及到 前中后序了（这里没有中节点的处理逻辑，遍历顺序无所谓了）
 class Solution {
-private:
-    void isAncestor(TreeNode* cur, TreeNode* p, TreeNode* q, int& findNums){
-        if(cur == NULL) return;
-
-        if(cur->val == p->val) findNums++;
-        if(cur->val == q->val) findNums++;
-
-        if(findNums == 2) return;
-
-        isAncestor(cur->left, p, q, findNums);
-        isAncestor(cur->right, p, q, findNums);
-
-    }
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-
-
+        if (root->val > p->val && root->val > q->val) {
+            return lowestCommonAncestor(root->left, p, q);
+        } else if (root->val < p->val && root->val < q->val) {
+            return lowestCommonAncestor(root->right, p, q);
+        } else return root;
     }
 };
 
