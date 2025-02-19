@@ -38,9 +38,25 @@ private:
             // 目标节点是左子树节点
             if(pre->val > key){
                 // 右子树的最小值作为被删除点
-                if(cur->right != nullptr){
+                if(cur->right != nullptr){                  
+                    TreeNode* pre_1 = cur->right;
+                    TreeNode* replacedNode = cur->right;
 
-                    pre->left = ;
+                    if(replacedNode->left != nullptr){
+                        replacedNode = replacedNode->left;
+                        while(replacedNode->left != nullptr){
+                            replacedNode = replacedNode->left;
+                            pre_1 = pre_1->left;
+                        }
+                        pre_1->left = nullptr;
+                        pre->left = replacedNode;
+                        replacedNode->left = cur->left;
+                        replacedNode->right = cur->right;
+                    }
+                    else{
+                        cur->right->left = cur->left;
+                        pre->left = cur->right;
+                    }
 
                 }
                 else{
@@ -50,7 +66,25 @@ private:
             // 目标节点是右子树节点
             else if(pre->val < key){
                 if(cur->left != nullptr){
-                    pre->right = cur->left;
+                    TreeNode* pre_1 = cur->left;
+                    TreeNode* replacedNode = cur->left;
+
+                    if(replacedNode->right != nullptr){
+                        replacedNode = replacedNode->right;
+                        while(replacedNode->right != nullptr){
+                            replacedNode = replacedNode->right;
+                            pre_1 = pre_1->right;
+                        }
+                        pre_1->right = nullptr;
+                        pre->right = replacedNode;
+                        replacedNode->left = cur->left;
+                        replacedNode->right = cur->right;
+                    }
+                    else{
+                        cur->left->right = cur->right;
+                        pre->right = cur->left;
+                    }
+
                 }
                 else{
                     pre->right = cur->right;
@@ -70,7 +104,9 @@ public:
         if(root == NULL) return nullptr;
         // 删除根节点
         if(root->val == key){
-            if(root->left != nullptr) return root->left;
+            if(root->left != nullptr) {
+                return root->left;
+            }
             if(root->right != nullptr) return root->right;
             return nullptr;
         }
