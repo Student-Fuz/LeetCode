@@ -12,6 +12,16 @@ using namespace std;
 // https://leetcode.cn/problems/spiral-matrix/?envType=study-plan-v2&envId=top-100-liked
 
 // Solution
+// 口口口口
+// 口口口口
+// 口口口口
+// 口口口口
+
+// 1 1 1 1
+// 4 5 5 2
+// 4 7 6 2
+// 3 3 3 2
+
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
@@ -20,42 +30,46 @@ public:
         int m = matrix.size();
         int n = matrix[0].size();
 
-        // 左闭右开
+        // 左闭右闭
         int left = 0;
-        int right = n;
+        int right = n-1;
         int up = 0;
-        int down = m;
+        int down = m-1;
 
-        int i = 0;
-        int j = 0;
+        int i = 0; 
+        int j = -1;
         while(true){
             // 向右
-            for(; j < right; ++j){
+            for(j++; j <= right; ++j){
                 result.push_back(matrix[i][j]);
             }
             up++;
-            if(up == down || left == right)
+            j--;
+            if(up > down || left > right)
                 break;
             // 向下
-            for(; i < down; ++i){
+            for(i++; i <= down; ++i){
                 result.push_back(matrix[i][j]);
             }
             right--;
-            if(up == down || left == right)
+            i--;
+            if(up > down || left > right)
                 break;
             // 向左
-            for(; j >= left; --j){
+            for(j--; j >= left; --j){
                 result.push_back(matrix[i][j]);
             }
             down--;
-            if(up == down || left == right)
+            j++;
+            if(up > down || left > right)
                 break;
             // 向上
-            for(; i >= up; --i){
+            for(i--; i >= up; --i){
                 result.push_back(matrix[i][j]);
             }
             left++;
-            if(up == down || left == right)
+            i++;
+            if(up > down || left > right)
                 break;   
         }
 
