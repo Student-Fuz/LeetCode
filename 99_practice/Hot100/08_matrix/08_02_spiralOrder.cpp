@@ -20,28 +20,43 @@ public:
         int m = matrix.size();
         int n = matrix[0].size();
 
-        int rowsVisted = 0;
-        int colVisted = 0;
+        // 左闭右开
+        int left = 0;
+        int right = n;
+        int up = 0;
+        int down = m;
 
         int i = 0;
         int j = 0;
-        while(rowsVisted != m && colVisted != colVisted){
-            for(; j < n-colVisted; ++j){
+        while(true){
+            // 向右
+            for(; j < right; ++j){
                 result.push_back(matrix[i][j]);
             }
-
-            for(; ; ++i){
+            up++;
+            if(up == down || left == right)
+                break;
+            // 向下
+            for(; i < down; ++i){
                 result.push_back(matrix[i][j]);
             }
-
-            for(; ; --j){
+            right--;
+            if(up == down || left == right)
+                break;
+            // 向左
+            for(; j >= left; --j){
                 result.push_back(matrix[i][j]);
             }
-
-            for(; ; --i){
+            down--;
+            if(up == down || left == right)
+                break;
+            // 向上
+            for(; i >= up; --i){
                 result.push_back(matrix[i][j]);
             }
-                
+            left++;
+            if(up == down || left == right)
+                break;   
         }
 
         return result;
