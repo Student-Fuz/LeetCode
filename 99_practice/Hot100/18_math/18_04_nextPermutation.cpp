@@ -9,22 +9,21 @@
 using namespace std;
 
 // 题目描述
-// https://leetcode.cn/problems/single-number/description/
+// https://leetcode.cn/problems/next-permutation/description/?envType=study-plan-v2&envId=top-100-liked
 
 // Solution
 class Solution {
 public:
-    int singleNumber(vector<int>& nums) {
-        int result = 0;
-        for(int i = 1; i < nums.size(); i++)
-            result ^= nums[i];
-        return result;
+    void nextPermutation(vector<int>& nums) {
+        
     }
 };
 
 int main(){
 
-    Solution s;
+    // Solution s;
+
+    cout << "Hello, world!" << endl;
 
     return 0;
 }
