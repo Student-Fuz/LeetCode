@@ -24,24 +24,43 @@ struct TreeNode {
 // Solution
 class Solution {
 private:
-    void traverse_cal(TreeNode* root, int sum, int targetSum, int& result){
+    void traverse_cal(TreeNode* root, long& sum, int targetSum, int& result){
         if(root == NULL) return;
 
         sum += root->val;
         if(sum == targetSum) result += 1;
         traverse_cal(root->left, sum, targetSum, result);
-        sum -= root->val;
         traverse_cal(root->right, sum, targetSum, result);
         sum -= root->val;
     }
 
-    void traverse(TreeNode* root, int targetSum){
-
+    void traverse(TreeNode* root, int targetSum, int& result){
+        if(root == NULL) return;
+        long sum = 0;
+        traverse_cal(root, sum, targetSum, result);
+        traverse(root->left, targetSum, result);
+        traverse(root->right, targetSum, result);
     }
 
 public:
     int pathSum(TreeNode* root, int targetSum) {
-        
+        int result = 0;
+
+        traverse(root, targetSum, result);
+
+        return result;
+    }
+};
+
+// 解法二：前缀和 TODO
+// Solution
+class Solution {
+public:
+    int pathSum(TreeNode* root, int targetSum) {
+        int result = 0;
+
+
+        return result;
     }
 };
 
