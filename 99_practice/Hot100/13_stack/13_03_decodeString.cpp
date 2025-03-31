@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <set>
+#include <stack>
 
 using namespace std;
 
@@ -14,7 +15,17 @@ using namespace std;
 // Solution
 class Solution {
 public:
+    string decodeString(string s) {
+        string result;
+        stack<char> char_stack;
 
+        for(const char char_s : s){
+            if(char_s == ']'){
+                result.push_back(char)
+            }
+
+        }
+    }
 };
 
 int main(){

@@ -15,9 +15,25 @@ using namespace std;
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
-        
-        for(int i = nums.size()-2; i >= 0; i--){
-            if(nums[i] > nums[i+1])
+        if(nums.size() <= 1)
+            return;
+        int i, j, k;
+        k = nums.size() - 1;
+        for(i = nums.size()-2; i >= 0; i--){
+            if(nums[i+1] > nums[i])
+                break;
+        }
+        j = i+1;
+
+        if(i >= 0){
+            while(nums[i] >= nums[k])
+                k--;
+            swap(nums[i], nums[k]);
+        }
+
+        // 翻转[j : end)
+        for(int l = j, m = nums.size()-1; l < m; l++, m--){
+            swap(nums[l], nums[m]);
         }
     }
 };
