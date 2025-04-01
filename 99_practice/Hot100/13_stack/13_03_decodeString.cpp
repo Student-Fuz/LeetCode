@@ -16,26 +16,55 @@ using namespace std;
 class Solution {
 public:
     string decodeString(string s) {
-        string result;
-        string result_1;
+        string str;
+        string str_mul;
+        string num;
+        int num_int;
         vector<char> char_stack;
 
         for(const char char_s : s){
             if(char_s == ']'){
                 while(char_stack.back() != '['){
-                    result.push_back(char_stack.back());
+                    str.push_back(char_stack.back());
                     char_stack.pop_back();
                 }
                 char_stack.pop_back();
-                for(int i = 0; i < char_stack.back(); i++){
-                    result_1 += result;
+
+                while((!char_stack.empty()) && char_stack.back() >= '0' && char_stack.back() <= '9'){
+                    num.push_back(char_stack.back());
+                    char_stack.pop_back();
+                }
+                reverse(num.begin(), num.end());
+                num_int = stoi(num);
+
+                for(int i = 0; i < num_int; i++){
+                    str_mul += str;
                 }
                 
+                reverse(str_mul.begin(), str_mul.end());
+                for(int i = 0; i < str_mul.size(); i++){
+                    char_stack.push_back(str_mul[i]);
+                    
+                }
+                str_mul = "";
+                str = "";
+                num = "";
+                num_int = 0;
+            }
+            else{
+                char_stack.push_back(char_s);
             }
 
         }
 
-        return result_1;
+        string result;
+
+        for(int i = 0; i < char_stack.size(); i++){
+            result.push_back(char_stack[i]); 
+        }
+        
+
+        return result;
 
     }
 };
