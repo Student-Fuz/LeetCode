@@ -1,7 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <list>
+#include<bits/stdc++.h>
 using namespace std;
 
 // m2: 邻接矩阵
