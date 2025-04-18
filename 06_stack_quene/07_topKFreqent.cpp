@@ -61,7 +61,9 @@ public:
     }
 };
 
-// 最小顶堆方法
+
+// m1: 最小顶堆方法
+// 核心思路：维护大小为k的最小顶堆
 // 大顶堆----堆头是最大元素 小顶对----堆头是最小元素
 // 时间复杂度O(n+nlogn+n)
 class Solution {
@@ -69,9 +71,11 @@ public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
         unordered_map<int, int> frequent_table;
         vector<int> result;
+        // 1. 统计频率
         for(auto num : nums)
             frequent_table[num]++;
 
+        // 2. 使用最小顶堆，维护大小为k的最小顶堆
         // 大的排在队列前 这里的堆的底层实现是完全二叉树
         priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> min_heap;
         for(auto& [num, freq] : frequent_table){
@@ -80,15 +84,18 @@ public:
                 min_heap.pop();
         }
 
+        // 3. 收集结果
         while(!min_heap.empty()){
             result.push_back(min_heap.top().second);
             min_heap.pop();
         }
             
-
         return result;
     }
 };
+
+// 错误方法（低效方法）：
+// 将所有元素放在最大顶堆里，pop出k个元素
 
 int main(){
 
