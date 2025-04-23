@@ -8,10 +8,12 @@ int main() {
 
     cin >> n >> m;
 
+    int sum = 0;
     vector<vector<int>> nums(n, vector<int>(m));
     for(int i = 0; i < n; i++){
         for(int j = 0; j < m; j++){
-            cin >> nums[n][m];
+            cin >> nums[i][j];
+            sum += nums[i][j];
         }
     }
 
@@ -27,18 +29,24 @@ int main() {
     vector<int> vertical(m, 0);
     for(int j = 0; j < m; j++){
         for(int i = 0; i < n; i++){
-            vertical[i] += nums[i][j];
+            vertical[j] += nums[i][j];
         }
     }
 
-    int gap = INT_MAX;
+    int minGap = INT_MAX;
+    int horizontalCnt = 0;
     for(int i = 0; i < n; i++){
-        
+        horizontalCnt += horizon[i];
+        minGap = min(minGap, abs(sum - horizontalCnt - horizontalCnt));
     }
 
+    int verticalCnt = 0;
     for(int j = 0; j < m; j++){
-
+        verticalCnt += vertical[j];
+        minGap = min(minGap, abs(sum - verticalCnt - verticalCnt));
     }
+
+    cout << minGap << endl;
 
     return 0;
 }
