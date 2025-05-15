@@ -12,7 +12,17 @@ struct ListNode {
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-        
+        unordered_set<ListNode*> nodeSet;
+        ListNode* cur = head;
+
+        while(cur != NULL){
+            if(nodeSet.count(cur) != 0)
+                return cur;
+            nodeSet.insert(cur);
+            cur = cur->next;
+        }
+
+        return NULL;
     }
 };
 
