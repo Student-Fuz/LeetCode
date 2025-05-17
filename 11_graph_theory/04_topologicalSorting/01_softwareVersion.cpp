@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// 链接：https://kamacoder.com/problempage.php?pid=1191
+
 int main() {
     // 1. 处理输入
     int n, m;
