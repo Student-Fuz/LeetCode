@@ -26,11 +26,37 @@ public:
 };
 
 class Solution {
-    public:
-        Node* copyRandomList(Node* head) {
-            
+public:
+    Node* copyRandomList(Node* head) {
+        if(head == NULL) return head;
+
+        unordered_map<Node*, Node*> old_new_map;
+
+        Node* cur = head;
+        Node* newHead = new Node(head->val);
+        Node* newPre = newHead;
+        newHead->random = head->random;
+        old_new_map[head] = newHead;
+        Node* newCur;
+        cur = cur->next;
+        while(cur != NULL){
+            newCur = new Node(cur->val);
+            newCur->random = cur->random;
+            old_new_map[cur] = newCur;
+            newPre->next = newCur;
+            newPre = newCur;
+            cur = cur->next;
         }
-    };
+
+        newCur = newHead;
+        while(newCur != NULL){
+            newCur->random = old_new_map[newCur->random]; 
+            newCur = newCur->next;
+        }
+
+        return newHead;
+    }
+};
 
 int main(){
 
