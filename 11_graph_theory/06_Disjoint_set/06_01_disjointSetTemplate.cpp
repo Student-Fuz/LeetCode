@@ -10,7 +10,7 @@ void init() {
         father[i] = i;
     }
 }
-// 并查集里寻根的过程
+// 并查集里寻根的过程--查一次对路径上的节点都压缩一次
 int find(int u) {
     return u == father[u] ? u : father[u] = find(father[u]); // 路径压缩
 }
