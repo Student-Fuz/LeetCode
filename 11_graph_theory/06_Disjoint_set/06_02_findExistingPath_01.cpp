@@ -1,8 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// https://kamacoder.com/problempage.php?pid=1179
+
 int n = 1005; // n根据题目中节点数量而定，一般比节点数量大一点就好
-// index--child val--father
 vector<int> father = vector<int> (n, 0); // C++里的一种数组结构
 
 // 并查集初始化
@@ -24,7 +25,6 @@ bool isSame(int u, int v) {
 }
 
 // 将v->u 这条边加入并查集
-// u-father、v-child
 void join(int u, int v) {
     u = find(u); // 寻找u的根
     v = find(v); // 寻找v的根
@@ -33,33 +33,22 @@ void join(int u, int v) {
 }
 
 int main() {
-
-    cin >> n;
+    int n, m;
+    cin >> n >> m;
 
     init();
-    unordered_map<int, int> inDegree;
 
-    for(int i = 0; i < n; i++){
-        // u-father、v-child
-        int u, v;
-        cin >> u >> v;
-        inDegree[v]++;
-        if(inDegree[v] == 2){
-            if(!isSame(u, v)){
-                // 删除另一边
-                cout << father[v] << " " << v << endl;
-            }
-            else
-                cout << u << " " << v << endl;
-            return 0;
+    for(int i = 0; i < m; i++){
+        int v1, v2;
+        cin >> v1 >> v2;
+        if(!isSame(v1, v2)){
+            join(v1, v2);
         }
-        if(!isSame(u, v))
-            join(u, v);
-        else{
-            cout << u << " " << v << endl;
-            return 0;
-        }  
     }
 
+    int src, dst;
+    cin >> src >> dst;
+    if(isSame(src, dst)) cout << 1 << endl;
+    else cout << 0 << endl;
     return 0;
 }

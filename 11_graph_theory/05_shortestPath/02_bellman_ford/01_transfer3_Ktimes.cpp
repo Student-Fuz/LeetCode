@@ -1,10 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// TODO
-// https://kamacoder.com/problempage.php?pid=1152
+// https://kamacoder.com/problempage.php?pid=1153
 
-// 对于不规定步数的单源最短路问题可以不使用层序结构编程，有的使用层序结构编程反而逻辑是混乱的
+// 高性能
+// 做了每层重复节点注入剔除
+
 int main() {
 
     int n, m;
@@ -12,26 +13,30 @@ int main() {
     cin >> n >> m;
 
     vector<vector<pair<int, int>>> adjList(n+1);
-    vector<bool> isInQueue(n + 1);
-
     for(int i = 0; i < m; i++){
         int s, t, v;
         cin >> s >> t >> v;
         adjList[s].push_back({t, v});
     }
 
-    vector<int> minDist(n+1, INT_MAX);
-    minDist[1] = 0;
-    queue<int> q;
-    q.push(1);
+    int src, dst, k;
+    cin >> src >> dst >> k;
 
-    for(int i = 0; i < n-1; i++){
+    vector<int> minDist(n+1, INT_MAX);
+    vector<int> minDist_copy(n+1);
+    minDist[src] = 0;
+    queue<int> q;
+    q.push(src);
+
+    for(int i = 0; i < k+1; i++){
         int len = q.size();
+        minDist_copy = minDist;
+        vector<bool> isInQueue(n + 1, false);
+
         while(len != 0){
             int node = q.front();
-            int dist = minDist[node];
+            int dist = minDist_copy[node];
             q.pop();
-            isInQueue[node] = false;
             for(int j = 0; j < adjList[node].size(); j++){
                 int nextNode = adjList[node][j].first;
                 int dist_to = adjList[node][j].second;
@@ -40,15 +45,16 @@ int main() {
                     if(isInQueue[nextNode] == false){
                         q.push(nextNode);
                         isInQueue[nextNode] = true;
-                    }   
+                    } 
+                    
                 }
             }
             len--;
         }
     }
 
-    if(minDist[n] == INT_MAX) cout << "unconnected" << endl;
-    else cout << minDist[n] << endl;
+    if(minDist[dst] == INT_MAX) cout << "unreachable" << endl;
+    else cout <<  minDist[dst] << endl;
 
     return 0;
 }

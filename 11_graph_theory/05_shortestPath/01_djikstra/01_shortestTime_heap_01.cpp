@@ -3,6 +3,7 @@ using namespace std;
 
 // https://kamacoder.com/problempage.php?pid=1047
 
+// 这是因为 priority_queue 是一个最大堆结构，它会把“比较函数返回 false”的元素排到顶上。
 class MyCmp{
 public:
     bool operator()(const pair<int, int>& l, const pair<int, int>& r){

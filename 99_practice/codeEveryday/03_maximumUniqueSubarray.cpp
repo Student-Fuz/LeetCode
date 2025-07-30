@@ -34,8 +34,77 @@ public:
     }
 };
 
-// 哈希表+前缀和 TODO
+// 哈希表+前缀和
+class Solution {
+public:
+    int maximumUniqueSubarray(vector<int>& nums) {
+        vector<int> sums(nums.size()+1, 0);
+        // key--val, val--index
+        unordered_map<int, int> map;
+        int maxScore = 0;
+        int begin = 0;
 
+        for(int i = 0; i < nums.size(); i++){
+            sums[i+1] = sums[i] + nums[i];
+            begin = max(begin, map[nums[i]]);
+            maxScore = max(maxScore, sums[i+1] - sums[begin]);
+            map[nums[i]] = i+1;
+        }
+
+        return maxScore;
+    }
+};
+
+// 滑动窗口--新写法TODO
+
+// class Solution {
+// public:
+//     int maximumUniqueSubarray(vector<int>& nums) {
+//         int maxScore = 0;
+//         int sum = nums[0];
+//         int begin = 0;
+//         int end = 0;
+
+//         for(end = 1; end < nums.size(); end++){
+//             end
+//         }
+//     }
+// };
+
+// 哈希表+前缀和 TODO--这版不好
+// 前缀和最好定义为vector<n+1>
+class Solution {
+public:
+    int maximumUniqueSubarray(vector<int>& nums) {
+        if(nums.size() == 0) return 0;
+        vector<int> sums(nums.size(), 0);
+        sums[0] = nums[0];
+        // key--val, val--index
+        unordered_map<int, int> map;
+        map[nums[0]] = 0;
+        int maxScore = sums[0];
+        int begin = 0;
+
+        for(int i = 1; i < nums.size(); i++){
+            sums[i] = sums[i-1] + nums[i];
+            if(map.count(nums[i]) != 0){
+                begin = max(begin, map[nums[i]]+1);
+            }
+            int currentSum;
+            if (begin == 0) {
+                currentSum = sums[i];
+            } else {
+                currentSum = sums[i] - sums[begin - 1];
+            }
+
+            maxScore = max(maxScore, currentSum);
+            map[nums[i]] = i;
+           
+        }
+
+        return maxScore;
+    }
+};
 
 
 // 滑动窗口
