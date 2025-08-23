@@ -30,11 +30,12 @@ public:
     }
 };
 
-// class Solution {
-// public:
-//     int numOfUnplacedFruits(vector<int>& fruits, vector<int>& baskets) {
-//         sort(fruits.begin(), fruits.end(), MyCmp());
-//         sort(baskets.begin(), baskets.end(), MyCmp());
+// 最少剩多少水果没装
+class Solution {
+public:
+    int numOfUnplacedFruits(vector<int>& fruits, vector<int>& baskets) {
+        sort(fruits.begin(), fruits.end(), MyCmp());
+        sort(baskets.begin(), baskets.end(), MyCmp());
 
 //         int stored = 0;
 //         int j = 0;
