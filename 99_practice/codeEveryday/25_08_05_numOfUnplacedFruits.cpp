@@ -30,28 +30,28 @@ public:
     }
 };
 
-class Solution {
-public:
-    int numOfUnplacedFruits(vector<int>& fruits, vector<int>& baskets) {
-        sort(fruits.begin(), fruits.end(), MyCmp());
-        sort(baskets.begin(), baskets.end(), MyCmp());
+// class Solution {
+// public:
+//     int numOfUnplacedFruits(vector<int>& fruits, vector<int>& baskets) {
+//         sort(fruits.begin(), fruits.end(), MyCmp());
+//         sort(baskets.begin(), baskets.end(), MyCmp());
 
-        int stored = 0;
-        int j = 0;
-        for(int i = 0; i < baskets.size(); i++){
-            for(; j < fruits.size(); j++){
-                if(fruits[j] <= baskets[i]){
-                    stored++;
-                    j++;
-                    break;
-                }
-            }
-            if(j == fruits.size()) break;
-        }
+//         int stored = 0;
+//         int j = 0;
+//         for(int i = 0; i < baskets.size(); i++){
+//             for(; j < fruits.size(); j++){
+//                 if(fruits[j] <= baskets[i]){
+//                     stored++;
+//                     j++;
+//                     break;
+//                 }
+//             }
+//             if(j == fruits.size()) break;
+//         }
 
-        return baskets.size() - stored;
-    }
-};
+//         return baskets.size() - stored;
+//     }
+// };
 
 int main() {
 
