@@ -1,49 +1,66 @@
 #include <bits/stdc++.h>
-// #include<iostream>
 using namespace std;
 
 int main() {
-    int m;
-    cin >> m;
+    int n, m;
+    cin >> n >> m;
 
-    for(int i = 0; i < m; i++){
-        int n;
-        cin >> n;
-        int r = 1;
-        vector<char> set;
-        for(int j = 0; j < n; j++){
-            char ch;
-            cin >> ch;
-            if(set.size() < 2){
-                if(set.empty() || set[0] != ch)
-                    set.push_back(ch);
-            }
-            else{
-                if(set.size() == 2){
-                    if(set[0] == ch || set[1] == ch){
-                        continue;
-                    }
-                    else{
-                        set.push_back(ch);
-                        r++;
-                    }
-                }
-                // size == 3
-                else{
-                    if(set[0] == ch){
-                        set.erase(set.begin()+1);
-                    }else if(set[1] == ch){
-                        set.erase(set.begin());
-                    }else if(set[2] != ch){
-                        set = {set[2], ch};
-                        r++;
-                    }
-                }
-
-            }
-        }
-        cout << r << endl;
+    int start = 0;
+    for (int i = 0; i < n; i++) {
+        int state;
+        cin >> state;
+        if (state == 1) start |= (1 << i);
     }
 
+    vector<int> rs(n, 0);
+    for (int i = 0; i < m; i++) {
+        int sw, lamp;
+        cin >> sw >> lamp;
+        sw--, lamp--;
+        rs[sw] |= (1 << lamp);
+    }
+    for(int i = 0; i < n; i++){
+        rs[i] |= (1 << i);
+        //cout << rs[i] << endl;;
+    }
+    
+
+    queue<pair<int, vector<int>>> q;
+    vector<int> minDist(1 << n, -1);
+    q.push({start, {}});
+    minDist[start] = 0;
+
+    while (!q.empty()) {
+        auto [state, steps] = q.front();
+        q.pop();
+        //cout << state << endl;
+
+        if (state == 0) {   
+            for(int i = 0; i < steps.size(); i++){
+                if(i == 0) cout << steps[i];
+                else cout << " " << steps[i];
+            }
+            return 0;
+        }
+
+        for (int i = 0; i < n; i++) {
+            int r = rs[i];
+            int newState = state ^ r;
+            //cout << newState << " " << r << endl;
+            //if (newState == 0) {         
+            //        cout << steps+1 << endl;
+            //        return 0;
+            //}
+            if (minDist[newState] == -1) {
+                vector<int> newStep = steps;
+                steps.push_back(i+1);
+                minDist[newState] = steps.size();
+                q.push({newState, steps});
+            }
+        }
+    }
+
+    cout << -1 << endl;
     return 0;
 }
+
